@@ -1,15 +1,25 @@
 package br.com.fiap.TrabalhoFuturo.controller;
 
-import br.com.fiap.TrabalhoFuturo.domain.dto.CadastroProfissionalDTO;
-import br.com.fiap.TrabalhoFuturo.domain.entity.CadastroProfissional;
-import br.com.fiap.TrabalhoFuturo.service.CadastroProfissionalService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import br.com.fiap.TrabalhoFuturo.domain.dto.CadastroProfissionalDTO;
+import br.com.fiap.TrabalhoFuturo.domain.entity.CadastroProfissional;
+import br.com.fiap.TrabalhoFuturo.service.CadastroProfissionalService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/cadastro-profissional")
@@ -19,7 +29,7 @@ public class CadastroProfissionalController {
     private CadastroProfissionalService cadastroProfissionalService;
     
     @PostMapping
-    public ResponseEntity<CadastroProfissional> cadastrarProfissional(@RequestBody CadastroProfissionalDTO cadastroProfissionalDTO) {
+    public ResponseEntity<CadastroProfissional> cadastrarProfissional(@Valid @RequestBody CadastroProfissionalDTO cadastroProfissionalDTO) {
         CadastroProfissional cadastroProfissional = cadastroProfissionalService.cadastrarProfissional(cadastroProfissionalDTO);
         return new ResponseEntity<>(cadastroProfissional, HttpStatus.CREATED);
     }
@@ -41,6 +51,7 @@ public class CadastroProfissionalController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CadastroProfissional> updateProfissional(
+            @Valid
             @PathVariable Long id, 
             @RequestBody CadastroProfissionalDTO cadastroProfissionalDTO) {
 
@@ -48,8 +59,9 @@ public class CadastroProfissionalController {
         return ResponseEntity.ok(updatedProfissional);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProfissional(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProfissional(@Valid @PathVariable Long id) {
         cadastroProfissionalService.deleteProfissional(id);
         return ResponseEntity.noContent().build();
     }

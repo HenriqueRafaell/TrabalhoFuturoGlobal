@@ -27,12 +27,10 @@ public class CadastroProfissionalService {
     @Autowired
     private TipoDeficienciaRepository tipoDeficienciaRepository;
 
-    // 1. Buscar todos os profissionais
     public List<CadastroProfissional> getAllProfissionais() {
         return cadastroProfissionalRepository.findAll();
     }
 
-    // 2. Buscar profissionais com filtro de deficiência ou cargo
     public List<CadastroProfissional> searchProfissionais(Optional<Long> cargoId, Optional<Long> tipoDeficienciaId) {
         if (cargoId.isPresent() && tipoDeficienciaId.isPresent()) {
             return cadastroProfissionalRepository.findByCargoIdAndTipoDeficienciaId(cargoId.get(), tipoDeficienciaId.get());
@@ -45,7 +43,6 @@ public class CadastroProfissionalService {
         }
     }
 
-    // 3. Atualizar um profissional
     public CadastroProfissional updateProfissional(Long id, CadastroProfissionalDTO cadastroProfissionalDTO) {
         CadastroProfissional profissionalExistente = cadastroProfissionalRepository.findById(id)
                 .orElseThrow(() -> new ProfissionalNotFoundException("Profissional com id " + id + " não encontrado"));
@@ -55,7 +52,6 @@ public class CadastroProfissionalService {
         TipoDeficienciaEntity tipoDeficiencia = tipoDeficienciaRepository.findById(cadastroProfissionalDTO.getTipoDeficienciaId())
                                                                          .orElseThrow(() -> new ProfissionalNotFoundException("Tipo de Deficiência não encontrado"));
 
-        // Atualizar os dados
         profissionalExistente.setNome(cadastroProfissionalDTO.getNome());
         profissionalExistente.setCargo(cargo);
         profissionalExistente.setIdade(cadastroProfissionalDTO.getIdade());
@@ -63,14 +59,12 @@ public class CadastroProfissionalService {
         return cadastroProfissionalRepository.save(profissionalExistente);
     }
 
-    // 4. Deletar um profissional
     public void deleteProfissional(Long id) {
         CadastroProfissional profissional = cadastroProfissionalRepository.findById(id)
                 .orElseThrow(() -> new ProfissionalNotFoundException("Profissional não encontrado"));
         cadastroProfissionalRepository.delete(profissional);
     }
 
-    // 5. Cadastrar um novo profissional
     public CadastroProfissional cadastrarProfissional(CadastroProfissionalDTO cadastroProfissionalDTO) {
         CargoEntity cargo = cargoRepository.findById(cadastroProfissionalDTO.getCargoId())
                                            .orElseThrow(() -> new ProfissionalNotFoundException("Cargo não encontrado"));
