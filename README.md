@@ -43,7 +43,7 @@ Padrão utilizado: **Clean layered architecture**
 - Spring JPA  
 - Flyway  
 - Validation  
-- H2 
+- MySQL
 - Java 21
 
 ---
