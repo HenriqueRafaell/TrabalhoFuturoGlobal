@@ -1,3 +1,6 @@
+HENRIQUE RAFAEL GOMES DE SOUZA RM - 553945
+
+
 # 📌 Sistema de Cadastro de Profissionais  
 
 Este projeto é uma API REST desenvolvida em **Java + Spring Boot**, cujo objetivo é realizar o cadastro de profissionais com cargo, tipo de deficiência e endereço recuperado automaticamente via **consumo externo da API ViaCEP**. Além da possibilidade do profissional conseguir avaliar o posto de trabalho
