@@ -1,6 +1,7 @@
 package br.com.fiap.TrabalhoFuturo.service;
 
 import br.com.fiap.TrabalhoFuturo.domain.dto.CadastroProfissionalDTO;
+import br.com.fiap.TrabalhoFuturo.domain.dto.ViaCepResponseDTO;
 import br.com.fiap.TrabalhoFuturo.domain.entity.CadastroProfissional;
 import br.com.fiap.TrabalhoFuturo.domain.entity.CargoEntity;
 import br.com.fiap.TrabalhoFuturo.domain.entity.TipoDeficienciaEntity;
@@ -26,6 +27,9 @@ public class CadastroProfissionalService {
 
     @Autowired
     private TipoDeficienciaRepository tipoDeficienciaRepository;
+    
+    @Autowired
+    private ViaCepService viaCepService;
 
     public List<CadastroProfissional> getAllProfissionais() {
         return cadastroProfissionalRepository.findAll();
@@ -66,10 +70,21 @@ public class CadastroProfissionalService {
     }
 
     public CadastroProfissional cadastrarProfissional(CadastroProfissionalDTO cadastroProfissionalDTO) {
+
         CargoEntity cargo = cargoRepository.findById(cadastroProfissionalDTO.getCargoId())
-                                           .orElseThrow(() -> new ProfissionalNotFoundException("Cargo não encontrado"));
+                .orElseThrow(() -> new ProfissionalNotFoundException("Cargo não encontrado"));
+
         TipoDeficienciaEntity tipoDeficiencia = tipoDeficienciaRepository.findById(cadastroProfissionalDTO.getTipoDeficienciaId())
-                                                                         .orElseThrow(() -> new ProfissionalNotFoundException("Tipo de Deficiência não encontrado"));
+                .orElseThrow(() -> new ProfissionalNotFoundException("Tipo de Deficiência não encontrado"));
+
+        // Consulta ViaCEP
+        ViaCepResponseDTO enderecoViaCep = viaCepService.consultarCep(
+                cadastroProfissionalDTO.getCep()
+        );
+
+        if (enderecoViaCep == null || enderecoViaCep.getLogradouro() == null) {
+            throw new IllegalArgumentException("CEP inválido ou não encontrado");
+        }
 
         CadastroProfissional novoProfissional = new CadastroProfissional();
         novoProfissional.setNome(cadastroProfissionalDTO.getNome());
@@ -78,6 +93,13 @@ public class CadastroProfissionalService {
         novoProfissional.setTipoDeficiencia(tipoDeficiencia);
         novoProfissional.setDataCriacao(LocalDateTime.now());
 
+        novoProfissional.setCep(cadastroProfissionalDTO.getCep());
+        novoProfissional.setLogradouro(enderecoViaCep.getLogradouro());
+        novoProfissional.setBairro(enderecoViaCep.getBairro());
+        novoProfissional.setCidade(enderecoViaCep.getLocalidade());
+        novoProfissional.setEstado(enderecoViaCep.getUf());
+
         return cadastroProfissionalRepository.save(novoProfissional);
     }
+
 }

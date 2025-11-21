@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "8bb78876-06a8-40ee-af2e-9a53d7ab364b",
+		"name": "TabalhoFuturo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45687940",
+		"_collection_link": "https://henrique-8212207.postman.co/workspace/Henrique's-Workspace~52c2a109-22c8-4056-84d0-f7042c22a49d/collection/45687940-8bb78876-06a8-40ee-af2e-9a53d7ab364b?action=share&source=collection_link&creator=45687940"
+	},
+	"item": [
+		{
+			"name": "Cadastro Profissional",
+			"item": [
+				{
+					"name": "Post",
+					"item": [
+						{
+							"name": "Sucesso",
+							"item": [
+								{
+									"name": "Cadastro",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nome\": \"João Silva\",\n    \"idade\": 30,\n    \"cargoId\": 1,\n    \"tipoDeficienciaId\": 2,\n    \"cep\": 05338900\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/cadastro-profissional",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"cadastro-profissional"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Falha",
+							"item": [
+								{
+									"name": "Erro 400 no cadastro",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n           \"nome\": \"Henrique Rafael\",\n           \"idade\": 30,\n           \"cargoId\": 1,\n           \"tipoDeficienciaId\": 2\n         }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/cadastro-profissional",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"cadastro-profissional"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "Buscar Todos os Profissionais (GET)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cadastro-profissional",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cadastro-profissional"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Profissionais com Filtros (GET)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cadastro-profissional/search?cargoId=1&tipoDeficienciaId=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cadastro-profissional",
+										"search"
+									],
+									"query": [
+										{
+											"key": "cargoId",
+											"value": "1"
+										},
+										{
+											"key": "tipoDeficienciaId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT",
+					"item": [
+						{
+							"name": "Sucesso",
+							"item": [
+								{
+									"name": "Atualizar Profissional",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"nome\": \"Joao atualizado\",\n  \"cargoId\": 1,\n  \"idade\": 17,\n  \"tipoDeficienciaId\": 2\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/cadastro-profissional/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"cadastro-profissional",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Falha",
+							"item": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "Sucesso",
+							"item": [
+								{
+									"name": "Deletar Profissional",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/cadastro-profissional/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"cadastro-profissional",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Falha",
+							"item": [
+								{
+									"name": "Erro Deletar Profissional",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/cadastro-profissional/-10",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"cadastro-profissional",
+												"-10"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Avaliacao",
+			"item": [
+				{
+					"name": "Criacao Avaliacao",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cadastroId\": 2,\n    \"acessoRampa\": true,\n    \"softwareLeitorTela\": false,\n    \"mesaErgonomicaAjustada\": true\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/avaliacoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"avaliacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Todas as Avaliacoes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/avaliacoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"avaliacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar avalicao por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/avaliacoes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"avaliacoes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar uma Avaliacao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/avaliacoes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"avaliacoes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

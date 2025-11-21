@@ -24,6 +24,11 @@ CREATE TABLE cadastro_profissional (
     tipo_deficiencia_id BIGINT,
     idade integer,
     data_criacao TIMESTAMP,
+    cep VARCHAR(8) NOT NULL,
+    logradouro VARCHAR(150),
+    bairro VARCHAR(150),
+    cidade VARCHAR(100),
+    estado VARCHAR(2),
     
     CONSTRAINT fk_cadastro_cargo
         FOREIGN KEY (cargo_id)
